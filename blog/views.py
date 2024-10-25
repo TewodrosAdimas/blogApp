@@ -11,6 +11,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserChangeForm, UserProfileForm
+from .models import UserProfile
 
 
 class SignUpView(CreateView):
@@ -22,6 +26,11 @@ class SignUpView(CreateView):
 @login_required
 def profile_view(request):
     user = request.user
+
+    # Ensure the UserProfile exists
+    if not hasattr(user, 'userprofile'):
+        UserProfile.objects.create(user=user)
+
     if request.method == 'POST':
         user_form = CustomUserChangeForm(request.POST, instance=user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
@@ -38,6 +47,9 @@ def profile_view(request):
         'profile_form': profile_form
     }
     return render(request, 'registration/profile.html', context)
+
+def home(request):
+    return render(request, "registration/home.html")
 
 def home(request):
     return render(request, "registration/home.html")
@@ -72,6 +84,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         # Set the author of the post to the current logged-in user
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
+
     
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -116,6 +132,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         form.instance.post_id = self.kwargs['post_id']  # Set the associated post
         return super().form_valid(form)
     
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
+
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     form_class = CommentForm
