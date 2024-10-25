@@ -15,6 +15,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserChangeForm, UserProfileForm
 from .models import UserProfile
+from django.contrib.auth.views import LoginView
+
 
 
 class SignUpView(CreateView):
@@ -59,7 +61,7 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'  # Specify your template
     context_object_name = 'posts'  # Use 'posts' in the template to access the list of blog posts
     ordering = ['-published_date']  # Order by latest posts first 
-    paginate_by = 5  #  If you want pagination (show 5 posts per page)
+    paginate_by = 3  #  If you want pagination (show 5 posts per page)
 
 
 class PostDetailView(DetailView):
@@ -177,3 +179,10 @@ def post_search(request):
         'query': query,
     }
     return render(request, 'blog/post_search.html', context)
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+
+    def get_success_url(self):
+        # Redirect to a different URL after successful login
+        return reverse_lazy('post_list') 

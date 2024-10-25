@@ -5,10 +5,16 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%; /* Make sure body takes full height */
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Column layout */
 }
 
 header {
@@ -33,13 +39,15 @@ header nav ul li a {
 }
 
 .content {
-    margin: 20px;
+    flex: 1; /* Allow content to grow and fill available space */
+    margin: 20px; /* Add margin for spacing */
 }
 
 footer {
-    text-align: center;
-    margin-top: 50px;
-    padding: 10px;
-    background-color: #333;
+    background-color: #333; /* Match footer with header */
     color: white;
+    text-align: center;
+    padding: 10px;
+    /* Make the footer stick to the bottom */
+    width: 100%;
 }

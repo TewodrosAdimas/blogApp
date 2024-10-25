@@ -6,7 +6,7 @@ from .views import profile_view
 from django.contrib.auth.views import PasswordChangeView
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import PostListView, PostDetailView, PostCreateView, post_search, PostUpdateView, PostDeleteView, CommentCreateView, CommentDeleteView, CommentUpdateView
+from .views import PostListView, PostDetailView, PostCreateView, post_search, PostUpdateView, PostDeleteView, CommentCreateView, CommentDeleteView, CommentUpdateView, CustomLoginView
 
 
 
@@ -16,7 +16,7 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path("register/", SignUpView.as_view(), name="register"),
     path('', home, name='home'),
-    path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('registration/profile/', profile_view, name='profileChange'),
     path('password_change/', PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change'),

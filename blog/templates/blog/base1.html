@@ -12,7 +12,15 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li>Wellcome to TedBlog</li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'post_list' %}">View Posts</a></li>
+                <li><a href="{% url 'post_create' %}">Create Post</a></li>
+                <li>
+                    <form method="GET" action="{% url 'post_search' %}" style="display:inline;">
+                        <input type="text" name="q" placeholder="Search..." />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </header>
