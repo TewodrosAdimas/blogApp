@@ -1,13 +1,10 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/base1.html' %}
 
 {% block title %}Search Results - Django Blog{% endblock %}
 
 {% block content %}
     <h1>Search Results</h1>
-    <form method="GET" action="{% url 'post_search' %}">
-        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
-        <button type="submit">Search</button>
-    </form>
+
 
     {% if posts %}
         <ul>
