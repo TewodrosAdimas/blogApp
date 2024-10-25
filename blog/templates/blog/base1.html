@@ -12,17 +12,28 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'post_list' %}">View Posts</a></li>
-                <li><a href="{% url 'post_create' %}">Create Post</a></li>
-                <li><a href="{% url 'profileChange' %}">Edit profile.</a>
-                </li>
-                <li>
-                    <form method="GET" action="{% url 'post_search' %}" style="display:inline;">
-                        <input type="text" name="q" placeholder="Search..." />
-                        <button type="submit">Search</button>
-                    </form>
-                </li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'post_list' %}">View Posts</a></li>
+                    <li><a href="{% url 'post_create' %}">Create Post</a></li>
+                    <li>
+                        <form method="GET" action="{% url 'post_search' %}" style="display:inline;">
+                            <input type="text" name="q" placeholder="Search..." />
+                            <button type="submit">Search</button>
+                        </form>
+                    </li>
+                    <li class="profile-dropdown">
+                        <a href="{% url 'profile' %}" class="profile-link">
+                            {% if user.userprofile.profile_picture %}
+                                <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%;">
+                            {% else %}
+                                <img src="{% static 'images/default_profile.jpg' %}" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%;">
+                            {% endif %}
+                        </a>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

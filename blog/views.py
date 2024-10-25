@@ -61,7 +61,7 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'  # Specify your template
     context_object_name = 'posts'  # Use 'posts' in the template to access the list of blog posts
     ordering = ['-published_date']  # Order by latest posts first 
-    paginate_by = 3  #  If you want pagination (show 5 posts per page)
+    paginate_by = 5  #  If you want pagination (show 5 posts per page)
 
 
 class PostDetailView(DetailView):

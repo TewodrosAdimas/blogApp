@@ -51,3 +51,12 @@ footer {
     /* Make the footer stick to the bottom */
     width: 100%;
 }
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.step-links a {
+    margin: 0 10px;
+}

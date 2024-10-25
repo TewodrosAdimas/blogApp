@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/profile/',
              TemplateView.as_view(template_name='accounts/profile.html'),
              name='profile'),
-    path('post/', PostListView.as_view(), name='post_list'),                 # List all posts
+    path('post/', PostListView.as_view(), name='post_list'),  
     path('post/new/', PostCreateView.as_view(), name='post_create'),         # Create a new post
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),    # View a specific post
     path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'), # Edit a specific post
